@@ -42,6 +42,46 @@ let HT_iOS_9 = (UIDevice.current.systemVersion as NSString).floatValue >= 9.0 ? 
 let HT_iOS_10 = (UIDevice.current.systemVersion as NSString).floatValue >= 10.0 ? true : false
 /// 判断当前手机系统版本是否是11.0以上
 let HT_iOS_11 = (UIDevice.current.systemVersion as NSString).floatValue >= 11.0 ? true : false
+//iphone X系列判断
+func isIphoneXSeries() -> Bool {
+    var iphoneXSeries: Bool = false
+    if UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.phone {
+        return iphoneXSeries
+    }
+    if #available(iOS 11, *) {
+        if KWindow.safeAreaInsets.bottom > 0.0 {
+            iphoneXSeries = true
+        }
+    }
+    return iphoneXSeries
+}
+let StatusBarHeight = isIphoneXSeries() ? 44.0:20.0 as CGFloat
+let NavigationBarHeight = isIphoneXSeries() ? 88.0 : 64.0 as CGFloat
+let  BottomSafeHeight = isIphoneXSeries() ? 34.0 : 0.0 as CGFloat
+
+func colorWithHexString(hex: String) -> UIColor {
+    var cString = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+    if (cString.hasPrefix("#")) {
+        let index = cString.index(cString.startIndex, offsetBy: 1)
+        cString = String(cString[index...])
+    }
+    if (cString.count != 6) {
+        return UIColor.red
+    }
+    let rIndex = cString.index(cString.startIndex, offsetBy: 2)
+    let rString = String(cString[..<rIndex])
+    let otherString = String(cString[rIndex...])
+    let gIndex = otherString.index(otherString.startIndex, offsetBy: 2)
+    let gString = String(otherString[..<gIndex])
+    let bIndex = cString.index(cString.endIndex, offsetBy: -2)
+    let bString = String(cString[bIndex...])
+    var r:CUnsignedInt = 0, g:CUnsignedInt = 0, b:CUnsignedInt = 0
+    Scanner(string: rString).scanHexInt32(&r)
+    Scanner(string: gString).scanHexInt32(&g)
+    Scanner(string: bString).scanHexInt32(&b)
+    return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
+}
+
 /// 获取设备唯一标识符（该标识符在App删除后重新安装是会改变的，并不是实际意义上的唯一标识符）
 let HT_Device_UUID = UIDevice.current.identifierForVendor?.uuidString
 /// 获取AppDelegate
