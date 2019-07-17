@@ -37,12 +37,14 @@ class HTBaseWebViewController: HTBaseViewController {
     
     //MARK: ---------- CustomizeFuntions ----------
     
-    /// 初始化子视图
+    /// 初始化webView
+    ///
+    /// - Parameter config: 配置项
     func initializeWebView(with config: WKWebViewConfiguration) {
         webView = WKWebView(frame: CGRect.zero, configuration: config)
         let scriptMessageHandler = HTWeakScriptMessageHandler()
         scriptMessageHandler.delegate = self
-        //name可以自定义，只要保证H5调用的时候名称一致既可
+        //name可以自定义，只要保证与H5调用的时候名称一致既可
         config.userContentController.add(scriptMessageHandler, name: "jumpToLogin")
         webView?.navigationDelegate = self
         
@@ -56,10 +58,8 @@ class HTBaseWebViewController: HTBaseViewController {
         progressView?.trackTintColor = HT_Color_F4F4F4
         self.view.addSubview(progressView!)
         
-        if type != .list {
-            webView?.addObserver(self, forKeyPath: "title", options: .new, context: nil)
-            webView?.addObserver(self, forKeyPath:"estimatedProgress", options: .new, context: nil)
-        }
+        webView?.addObserver(self, forKeyPath: "title", options: .new, context: nil)
+        webView?.addObserver(self, forKeyPath:"estimatedProgress", options: .new, context: nil)
     }
     
     /// 加载url链接
@@ -102,8 +102,6 @@ extension HTBaseWebViewController: WKNavigationDelegate {
                     self.navigationItem.title = webView?.title
                 case .defaultPage:
                     self.navigationItem.title = param["title"] as? String
-                default:
-                    break
             }
         } else if keyPath == "estimatedProgress" {
             progressView?.isHidden = false

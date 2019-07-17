@@ -22,14 +22,6 @@ enum HTResponseCode:Int {
 enum HTWebType {
     /// 默认
     case defaultPage
-    /// 登录
-    case login
-    /// 设置
-    case setting
-    ///列表
-    case list
     /// 详情页
     case detail
-    /// 搜索
-    case search
 }
