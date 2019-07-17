@@ -15,10 +15,12 @@ let HT_SEVERADDRESS = ""
 /// 生产服务器
 // let HT_SEVERADDRESS  = ""
 
+
 //MARK: ====== API ======
 
 /// 版本更新
 let HT_API_000001   = ""
+
 
 //MARK: ====== SNAPSHOT ======
 
@@ -53,16 +55,16 @@ let HT_AppName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName")
 /// 获取当前App版本号
 let HT_AppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
+
 //MARK: ====== COLOR ======
 
 let HT_Color_000000 = UIColor.getColor(fromHexColorString: "000000")
-let HT_Color_3C4669 = UIColor.getColor(fromHexColorString: "3C4669")
 let HT_Color_50597B = UIColor.getColor(fromHexColorString: "50597B")
-let HT_Color_9EB2CD = UIColor.getColor(fromHexColorString: "9EB2CD")
 let HT_Color_BEC8DC = UIColor.getColor(fromHexColorString: "BEC8DC")
 let HT_Color_CCCCCC = UIColor.getColor(fromHexColorString: "CCCCCC")
 let HT_Color_F4F4F4 = UIColor.getColor(fromHexColorString: "F4F4F4")
 let HT_Color_FFFFFF = UIColor.getColor(fromHexColorString: "FFFFFF")
+
 
 //MARK: ====== USERDEFAULTS ======
 
@@ -70,30 +72,23 @@ let HT_Color_FFFFFF = UIColor.getColor(fromHexColorString: "FFFFFF")
 let HT_Key_AppVersion     = "HTAppVersion"
 /// 是否已安装
 let HT_Key_Installed      = "HTInstalled"
-/// 登录token
+/// 是否已安装
 let HT_Key_Token          = "HTToken"
-/// 请求头鉴权
+/// 是否已安装
 let HT_Key_Authorization  = "HTAuthorization"
-/// 用户名
-let HT_Key_Username       = "HTUsername"
-/// 历史记录
-let HT_Key_HistoryRecord  = "HTHistoryRecord"
-/// 设备号
-let HT_Key_DeviceToken    = "HTDeviceToken"
-/// 记住登录状态flag
-let HT_Key_RememberFlag   = "HTRememberFlag"
-/// 服务器地址
-let HT_Key_SeverAddress   = "HTSeverAddress"
+
 
 //MARK: ====== NOTIFICATION ======
 
-/// 更新列表
-let HT_Notification_Name_UpdateList = "UpdateList"
+/// 弹出登录
+let HT_Notification_Name_PresentLogin = "HTPresentLogin"
+
 
 //MARK: ====== URL ======
 
 /// AppStore链接
 let HT_AppStore_Url = ""
+
 
 //MARK: ====== CONST ======
 

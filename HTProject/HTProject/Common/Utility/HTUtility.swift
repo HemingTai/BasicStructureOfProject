@@ -100,8 +100,6 @@ class HTUtility: NSObject {
     /// 清除用户数据
     class func clearUserData() {
         UserDefaults.standard.removeObject(forKey: HT_Key_Token)
-        UserDefaults.standard.removeObject(forKey: HT_Key_Username)
-        UserDefaults.standard.removeObject(forKey: HT_Key_HistoryRecord)
         UserDefaults.standard.synchronize()
     }
     

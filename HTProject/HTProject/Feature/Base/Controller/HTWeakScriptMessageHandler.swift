@@ -9,9 +9,12 @@
 import Foundation
 @_exported import WebKit
 
-class HTWeakScriptMessageHandler: NSObject, WKScriptMessageHandler {
+class HTWeakScriptMessageHandler: NSObject {
     
     weak var delegate: WKScriptMessageHandler?
+}
+
+extension HTWeakScriptMessageHandler: WKScriptMessageHandler {
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if delegate != nil {
