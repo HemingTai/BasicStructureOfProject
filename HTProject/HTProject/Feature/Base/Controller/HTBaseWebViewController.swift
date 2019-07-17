@@ -21,10 +21,8 @@ class HTBaseWebViewController: HTBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
+        initializeSubviews()
         if #available(iOS 11.0, *) {
             webView?.scrollView.contentInsetAdjustmentBehavior = .never
         }
@@ -37,17 +35,24 @@ class HTBaseWebViewController: HTBaseViewController {
     
     //MARK: ---------- CustomizeFuntions ----------
     
+    /// 可在子类重写该方法，
+    func initializeSubviews() {
+        let config = WKWebViewConfiguration()
+        config.userContentController = WKUserContentController()
+        let scriptMessageHandler = HTWeakScriptMessageHandler()
+        scriptMessageHandler.delegate = self
+        //name可以自定义，只要保证与H5调用的时候名称一致既可
+        config.userContentController.add(scriptMessageHandler, name: "jumpToLogin")
+        
+        initializeWebView(with: config)
+    }
+    
     /// 初始化webView
     ///
     /// - Parameter config: 配置项
     func initializeWebView(with config: WKWebViewConfiguration) {
         webView = WKWebView(frame: CGRect.zero, configuration: config)
-        let scriptMessageHandler = HTWeakScriptMessageHandler()
-        scriptMessageHandler.delegate = self
-        //name可以自定义，只要保证与H5调用的时候名称一致既可
-        config.userContentController.add(scriptMessageHandler, name: "jumpToLogin")
         webView?.navigationDelegate = self
-        
         self.view.addSubview(webView!)
         webView?.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
@@ -114,15 +119,15 @@ extension HTBaseWebViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        debugPrint("start loading ...")
+        debugPrint("start ...")
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        debugPrint("finish loading ...")
+        debugPrint("finish ...")
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        debugPrint("loading fail ...")
+        debugPrint("fail ...")
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
